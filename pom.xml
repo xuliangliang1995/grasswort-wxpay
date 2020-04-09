@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.grasswort</groupId>
-    <artifactId>wxpay</artifactId>
+    <artifactId>grasswort-wxpay</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>wxpay</name>
     <description>微信支付 Demo</description>
