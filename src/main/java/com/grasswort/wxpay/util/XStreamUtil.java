@@ -34,7 +34,6 @@ public class XStreamUtil {
         return XStreamSingletonHolder.XSTREAM.fromXML(xml);
     }
 
-
     private static final class XStreamSingletonHolder {
         static final XStream XSTREAM;
         static {

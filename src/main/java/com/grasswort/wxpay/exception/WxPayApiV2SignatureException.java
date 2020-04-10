@@ -7,7 +7,7 @@ package com.grasswort.wxpay.exception;
  * @Date 2020/4/9
  * @blame Java Team
  */
-public class WxPayApiV2SignException extends RuntimeException {
+public class WxPayApiV2SignatureException extends RuntimeException {
     /**
      * Constructs a new runtime exception with the specified detail message.
      * The cause is not initialized, and may subsequently be initialized by a
@@ -16,7 +16,7 @@ public class WxPayApiV2SignException extends RuntimeException {
      * @param message the detail message. The detail message is saved for
      *                later retrieval by the {@link #getMessage()} method.
      */
-    public WxPayApiV2SignException(String message) {
+    public WxPayApiV2SignatureException(String message) {
         super(message);
     }
 
@@ -25,7 +25,7 @@ public class WxPayApiV2SignException extends RuntimeException {
      * detail message.  The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause}.
      */
-    public WxPayApiV2SignException() {
+    public WxPayApiV2SignatureException() {
         super("签名异常");
     }
 }

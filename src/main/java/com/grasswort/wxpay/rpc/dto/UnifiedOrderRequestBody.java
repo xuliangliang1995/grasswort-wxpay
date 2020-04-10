@@ -1,6 +1,7 @@
 package com.grasswort.wxpay.rpc.dto;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -16,6 +17,7 @@ import javax.validation.constraints.Size;
  * @blame Java Team
  */
 @Data
+@Builder
 @XStreamAlias("xml")
 public class UnifiedOrderRequestBody {
     /**
