@@ -1,6 +1,6 @@
-package com.grasswort.wxpay.rpc.dto;
+package com.grasswort.wxpay.service.dto;
 
-import com.grasswort.wxpay.rpc.constants.WxPayConstants;
+import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 

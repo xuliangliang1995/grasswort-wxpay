@@ -1,9 +1,9 @@
-package com.grasswort.wxpay.rpc;
+package com.grasswort.wxpay.service;
 
-import com.grasswort.wxpay.rpc.config.RefundConfiguration;
-import com.grasswort.wxpay.rpc.constants.WxPayConstants;
-import com.grasswort.wxpay.rpc.dto.RefundRequestBody;
-import com.grasswort.wxpay.rpc.dto.RefundResponseBody;
+import com.grasswort.wxpay.service.config.RefundConfiguration;
+import com.grasswort.wxpay.service.constants.WxPayConstants;
+import com.grasswort.wxpay.service.dto.RefundRequestBody;
+import com.grasswort.wxpay.service.dto.RefundResponseBody;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,9 +1,9 @@
-package com.grasswort.wxpay.rpc;
+package com.grasswort.wxpay.service;
 
-import com.grasswort.wxpay.rpc.config.UnifiedOrderConfiguration;
-import com.grasswort.wxpay.rpc.constants.WxPayConstants;
-import com.grasswort.wxpay.rpc.dto.UnifiedOrderRequestBody;
-import com.grasswort.wxpay.rpc.dto.UnifiedOrderResponseBody;
+import com.grasswort.wxpay.service.config.UnifiedOrderConfiguration;
+import com.grasswort.wxpay.service.constants.WxPayConstants;
+import com.grasswort.wxpay.service.dto.UnifiedOrderRequestBody;
+import com.grasswort.wxpay.service.dto.UnifiedOrderResponseBody;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

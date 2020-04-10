@@ -1,4 +1,4 @@
-package com.grasswort.wxpay.rpc.constants;
+package com.grasswort.wxpay.service.constants;
 
 /**
  * @author xuliangliang

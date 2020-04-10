@@ -1,7 +1,7 @@
-package com.grasswort.wxpay.rpc.config;
+package com.grasswort.wxpay.service.config;
 
-import com.grasswort.wxpay.rpc.plugins.SignatureEncoder;
-import com.grasswort.wxpay.rpc.plugins.SignatureVerifyDecoder;
+import com.grasswort.wxpay.service.plugins.SignatureEncoder;
+import com.grasswort.wxpay.service.plugins.SignatureVerifyDecoder;
 import feign.Client;
 import feign.codec.Decoder;
 import feign.codec.Encoder;

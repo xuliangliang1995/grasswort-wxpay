@@ -2,7 +2,7 @@ package com.grasswort.wxpay.config;
 
 import com.grasswort.wxpay.exception.CertException;
 import com.grasswort.wxpay.exception.UnSupportSignatureArithmeticException;
-import com.grasswort.wxpay.rpc.constants.SignatureArithmeticEnum;
+import com.grasswort.wxpay.service.constants.SignatureArithmeticEnum;
 import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.impl.HMACSHA256Signature;
 import com.grasswort.wxpay.util.impl.MD5Signature;
@@ -123,6 +123,6 @@ public class WxMchProperties {
                 }
             }
         }
-        return null;
+        throw new CertException("证书配置存在问题，请检查。");
     }
 }

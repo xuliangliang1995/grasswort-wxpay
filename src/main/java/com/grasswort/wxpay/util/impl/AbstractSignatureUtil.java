@@ -16,8 +16,10 @@ import java.util.stream.Stream;
  * @blame Java Team
  */
 public abstract class AbstractSignatureUtil implements ISignatureUtil {
-    // 签名排除参数
-    private final List<String> EXCLUDE_SIGN_KEYS = Arrays.asList(new String[]{"sign", "paySign"});
+    /**
+     * 签名排除参数
+     */
+    private final List<String> EXCLUDE_SIGN_KEYS = Arrays.asList("sign", "paySign");
 
     /**
      * 签名
@@ -26,7 +28,7 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
      * @return
      */
     @Override
-    public String signature(Map<String, Object> params, String key) {
+    public final String signature(Map<String, Object> params, String key) {
         // 1. 参数排序
         String sortedParams = sortParamsByASCII(params);
         // 2. 拼接 "&key="
@@ -54,7 +56,7 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
      * @param params
      * @return
      */
-    private String sortParamsByASCII(Map<String, Object> params) {
+    private final String sortParamsByASCII(Map<String, Object> params) {
         String[] keyArray = params.keySet().toArray(new String[params.keySet().size()]);
         // 字典排序
         Arrays.sort(keyArray);
