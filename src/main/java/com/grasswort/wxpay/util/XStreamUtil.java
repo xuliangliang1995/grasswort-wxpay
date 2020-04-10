@@ -28,10 +28,18 @@ public class XStreamUtil {
     /**
      * xml 转对象
      * @param xml
+     * @param claz
      * @return
      */
-    public static final Object fromXml(String xml) {
-        return XStreamSingletonHolder.XSTREAM.fromXML(xml);
+    public static final Object fromXml(String xml, Class claz) {
+        try {
+            return XStreamSingletonHolder.XSTREAM.fromXML(xml, claz.newInstance());
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static final class XStreamSingletonHolder {

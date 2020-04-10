@@ -1,7 +1,7 @@
 package com.grasswort.wxpay.rpc.config;
 
-import com.grasswort.wxpay.rpc.decoder.SignatureVerifyDecoder;
-import com.grasswort.wxpay.rpc.encoder.SignatureEncoder;
+import com.grasswort.wxpay.rpc.plugins.SignatureVerifyDecoder;
+import com.grasswort.wxpay.rpc.plugins.SignatureEncoder;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import org.springframework.context.annotation.Bean;

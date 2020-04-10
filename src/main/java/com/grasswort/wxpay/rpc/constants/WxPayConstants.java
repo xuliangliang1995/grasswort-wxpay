@@ -20,6 +20,10 @@ public class WxPayConstants {
      * application/xml
      */
     public static final String CONTENT_TYPE_APPLICATION_XML = "Content-Type: application/xml";
+    /**
+     * xml 根节点 name
+     */
+    public static final String XML_ROOT_NODE_NAME = "xml";
 
     /**
      * 服务路由
@@ -29,6 +33,10 @@ public class WxPayConstants {
          * 统一下单
          */
         public static final String UNIFIED_ORDER_PATH = "/pay/unifiedorder";
+        /**
+         * 退款
+         */
+        public static final String REFUND_PATH = "/secapi/pay/refund";
     }
 
     /**
@@ -40,5 +48,9 @@ public class WxPayConstants {
          * 统一下单 contextId
          */
         public static final String UNIFIED_ORDER = "unifiedOrderService";
+        /**
+         * 退款 contextId
+         */
+        public static final String REFUND = "refundService";
     }
 }

@@ -1,5 +1,6 @@
 package com.grasswort.wxpay.rpc.dto;
 
+import com.grasswort.wxpay.rpc.constants.WxPayConstants;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
 
@@ -11,7 +12,7 @@ import lombok.Data;
  * @blame Java Team
  */
 @Data
-@XStreamAlias("xml")
+@XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
 public class UnifiedOrderResponseBody {
     /**
      * 返回状态码

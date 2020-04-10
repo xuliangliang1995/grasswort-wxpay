@@ -7,6 +7,7 @@ import com.grasswort.wxpay.rpc.dto.UnifiedOrderResponseBody;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author xuliangliang
@@ -26,6 +27,6 @@ public interface IUnifiedOrderService {
      */
     @Headers(WxPayConstants.CONTENT_TYPE_APPLICATION_XML)
     @PostMapping(WxPayConstants.Path.UNIFIED_ORDER_PATH)
-    UnifiedOrderResponseBody unifiedOrder(UnifiedOrderRequestBody requestBody);
+    UnifiedOrderResponseBody unifiedOrder(@RequestBody UnifiedOrderRequestBody requestBody);
 
 }

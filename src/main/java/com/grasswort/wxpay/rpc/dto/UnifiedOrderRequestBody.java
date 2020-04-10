@@ -1,5 +1,6 @@
 package com.grasswort.wxpay.rpc.dto;
 
+import com.grasswort.wxpay.rpc.constants.WxPayConstants;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Builder
-@XStreamAlias("xml")
+@XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
 public class UnifiedOrderRequestBody {
     /**
      * 微信公众平台或者开放平台 appId
