@@ -2,7 +2,9 @@ package com.grasswort.wxpay.service.dto;
 
 import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author xuliangliang
@@ -12,6 +14,8 @@ import lombok.Data;
  * @blame Java Team
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
 public class PayNotifyResBody {
     /**

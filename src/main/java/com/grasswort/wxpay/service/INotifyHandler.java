@@ -1,5 +1,7 @@
 package com.grasswort.wxpay.service;
 
+import com.grasswort.wxpay.service.dto.PayNotifyHandleResult;
+
 /**
  * @author xuliangliang
  * @Classname INotifyHandler.java
@@ -8,4 +10,10 @@ package com.grasswort.wxpay.service;
  * @blame Java Team
  */
 public interface INotifyHandler {
+    /**
+     * 处理支付通知
+     * @param xml
+     * @return
+     */
+    PayNotifyHandleResult handlePayNotify(String xml);
 }
