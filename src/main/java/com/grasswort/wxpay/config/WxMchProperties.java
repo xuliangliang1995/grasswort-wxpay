@@ -14,10 +14,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.util.Arrays;
@@ -88,40 +90,35 @@ public class WxMchProperties {
     @Bean
     @ConditionalOnPropertiesExists({"mch.certPath", "mch.certPwd"})
     public SSLContext sslSocket(WxMchProperties mchProperties) {
-        String certPath = mchProperties.getCertPath();
-        String certPwd = mchProperties.getCertPwd();
-        FileInputStream inputStream = null;
+        char[] password = mchProperties.getCertPwd().toCharArray();
+        InputStream certStream = null;
         try {
-            KeyStore clientStore = KeyStore.getInstance("PKCS12");
-            // 读取本机存放的PKCS12证书文件
-            inputStream = new FileInputStream(certPath);
-            // 指定PKCS12的密码(商户ID)
-            clientStore.load(inputStream, certPwd.toCharArray());
-            SSLContext sslcontext = SSLContexts.custom().loadKeyMaterial(clientStore, certPwd.toCharArray()).build();
-            return sslcontext;
+            certStream = new FileInputStream(mchProperties.getCertPath());
+            KeyStore ks = KeyStore.getInstance("PKCS12");
+            ks.load(certStream, password);
+
+            // 实例化密钥库 & 初始化密钥工厂
+            KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+            kmf.init(ks, password);
+
+            // 创建 SSLContext
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(kmf.getKeyManagers(), null, new SecureRandom());
+            return sslContext;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CertificateException e) {
+            e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnrecoverableKeyException e) {
             e.printStackTrace();
         } catch (KeyManagementException e) {
             e.printStackTrace();
         } catch (KeyStoreException e) {
             e.printStackTrace();
-        } catch (UnrecoverableKeyException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            throw new CertException("微信支付证书不存在：" + certPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         throw new CertException("证书配置存在问题，请检查。");
     }
