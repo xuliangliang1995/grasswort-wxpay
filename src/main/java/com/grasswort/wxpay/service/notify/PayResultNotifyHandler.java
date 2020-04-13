@@ -11,6 +11,7 @@ import com.grasswort.wxpay.service.dto.PayResultNotifyBody;
 import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.XStreamUtil;
 import com.grasswort.wxpay.util.impl.StaxonJsonXmlConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -27,11 +28,11 @@ public class PayResultNotifyHandler implements INotifyHandler {
     /**
      * 签名工具
      */
-    private ISignatureUtil signatureUtil;
+    @Autowired private ISignatureUtil signatureUtil;
     /**
      * 微信商户配置
      */
-    private WxMchProperties mchProperties;
+    @Autowired private WxMchProperties mchProperties;
 
     /**
      * 处理支付通知
