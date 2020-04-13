@@ -11,8 +11,8 @@ import feign.FeignException;
 import feign.Response;
 import feign.Util;
 import feign.codec.Decoder;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
@@ -28,11 +28,16 @@ import java.util.Objects;
  * @blame Java Team
  */
 @Slf4j
+@Setter
 public class SignatureVerifyDecoder implements Decoder {
 
-    @Autowired private ISignatureUtil signatureUtil;
+    private ISignatureUtil signatureUtil;
 
-    @Autowired private WxMchProperties mchProperties;
+    private WxMchProperties mchProperties;
+
+    private final String UTF8 = "UTF-8";
+    private final String SIGN_KEY = "sign";
+    private final String RETURN_CODE = "return_code";
 
     @Override
     public Object decode(Response response, Type type) throws IOException, FeignException {
@@ -51,7 +56,7 @@ public class SignatureVerifyDecoder implements Decoder {
             String json = StaxonJsonXmlConverter.INSTANCE.xml2json(xml);
             JSONObject params = JSONObject.parseObject(json).getJSONObject(WxPayConstants.XML_ROOT_NODE_NAME);
 
-            if (RETURN_CODE_SUCCESS_VALUE.equals(params.getString(RETURN_CODE))) {
+            if (WxPayConstants.SUCCESS.equals(params.getString(RETURN_CODE))) {
                 // 3。如果 SUCCESS，进行签名校验
                 String signature = signatureUtil.signature(params, mchProperties.getKey());
                 if (! Objects.equals(signature, params.getString(SIGN_KEY))) {
@@ -64,9 +69,6 @@ public class SignatureVerifyDecoder implements Decoder {
         }
     }
 
-    private final String UTF8 = "UTF-8";
-    private final String SIGN_KEY = "sign";
-    private final String RETURN_CODE = "return_code";
-    private final String RETURN_CODE_SUCCESS_VALUE = "SUCCESS";
+
 
 }

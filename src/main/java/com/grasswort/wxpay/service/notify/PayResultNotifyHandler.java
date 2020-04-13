@@ -2,17 +2,15 @@ package com.grasswort.wxpay.service.notify;
 
 import com.alibaba.fastjson.JSONObject;
 import com.grasswort.wxpay.config.WxMchProperties;
-import com.grasswort.wxpay.exception.WxPayApiV2SignatureException;
-import com.grasswort.wxpay.service.INotifyHandler;
 import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.grasswort.wxpay.service.dto.PayNotifyHandleResult;
-import com.grasswort.wxpay.service.dto.PayNotifyResBody;
-import com.grasswort.wxpay.service.dto.PayResultNotifyBody;
+import com.grasswort.wxpay.service.dto.PayNotifyRequestBody;
+import com.grasswort.wxpay.service.dto.PayNotifyResponseBody;
 import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.XStreamUtil;
 import com.grasswort.wxpay.util.impl.StaxonJsonXmlConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -23,8 +21,8 @@ import java.util.Objects;
  * @Date 2020/4/10
  * @blame Java Team
  */
-@Service
-public class PayResultNotifyHandler implements INotifyHandler {
+@Component
+public class PayResultNotifyHandler {
     /**
      * 签名工具
      */
@@ -40,14 +38,13 @@ public class PayResultNotifyHandler implements INotifyHandler {
      * @param xml
      * @return
      */
-    @Override
     public PayNotifyHandleResult handlePayNotify(String xml) {
         // 1. 签名校验
         boolean signVerifySuccess = signatureVerify(xml);
         // 2. 请求体解析
-        PayResultNotifyBody notifyBody = XStreamUtil.fromXml(xml, PayResultNotifyBody.class);
+        PayNotifyRequestBody notifyBody = XStreamUtil.fromXml(xml, PayNotifyRequestBody.class);
         // 3. 构建响应体
-        PayNotifyResBody resBody = signVerifySuccess ? SUCCESS_RES : SIGN_CHECK_FAIL;
+        PayNotifyResponseBody resBody = signVerifySuccess ? SUCCESS_RES : SIGN_CHECK_FAIL;
 
         return new PayNotifyHandleResult(notifyBody, resBody);
     }
@@ -65,6 +62,6 @@ public class PayResultNotifyHandler implements INotifyHandler {
     }
 
     private final String SIGN_KEY = "sign";
-    private final PayNotifyResBody SUCCESS_RES = new PayNotifyResBody(WxPayConstants.SUCCESS, "OK");
-    private final PayNotifyResBody SIGN_CHECK_FAIL = new PayNotifyResBody(WxPayConstants.FAIL, "签名校验失败");
+    private final PayNotifyResponseBody SUCCESS_RES = new PayNotifyResponseBody(WxPayConstants.SUCCESS, "OK");
+    private final PayNotifyResponseBody SIGN_CHECK_FAIL = new PayNotifyResponseBody(WxPayConstants.FAIL, "签名校验失败");
 }

@@ -9,8 +9,8 @@ import com.grasswort.wxpay.util.impl.StaxonJsonXmlConverter;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Type;
 
@@ -22,11 +22,12 @@ import java.lang.reflect.Type;
  * @blame Java Team
  */
 @Slf4j
+@Setter
 public class SignatureEncoder implements Encoder {
 
-    @Autowired private ISignatureUtil signatureUtil;
+    private ISignatureUtil signatureUtil;
 
-    @Autowired private WxMchProperties mchProperties;
+    private WxMchProperties mchProperties;
 
     @Override
     public void encode(Object o, Type type, RequestTemplate requestTemplate) throws EncodeException {

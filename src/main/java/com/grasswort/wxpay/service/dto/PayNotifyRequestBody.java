@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 @XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
-public class PayResultNotifyBody {
+public class PayNotifyRequestBody {
     /**
      * SUCCESS/FAIL
      * 此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断

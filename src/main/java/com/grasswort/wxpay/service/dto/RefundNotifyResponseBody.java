@@ -8,28 +8,26 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author xuliangliang
- * @Classname PayNotifyResBody.java
- * @Description 支付通知结果响应体
- * @Date 2020/4/10
+ * @Classname RefundNotifyResponseBody.java
+ * @Description
+ * @Date 2020/4/13
  * @blame Java Team
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
-public class PayNotifyResBody {
+public class RefundNotifyResponseBody {
     /**
+     * 返回状态码
      * SUCCESS/FAIL
      * SUCCESS表示商户接收通知成功并校验成功
      */
     @XStreamAlias("return_code")
     private String returnCode;
     /**
-     * 返回信息，如非空，为错误原因：
-     * 签名失败
-     * 参数格式校验错误
+     * 返回信息，如非空，为错误原因
      */
     @XStreamAlias("return_msg")
     private String returnMsg;
-
 }

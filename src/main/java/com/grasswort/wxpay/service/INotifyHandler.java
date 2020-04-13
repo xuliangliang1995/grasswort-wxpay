@@ -1,6 +1,7 @@
 package com.grasswort.wxpay.service;
 
 import com.grasswort.wxpay.service.dto.PayNotifyHandleResult;
+import com.grasswort.wxpay.service.dto.RefundNotifyHandleResult;
 
 /**
  * @author xuliangliang
@@ -16,4 +17,10 @@ public interface INotifyHandler {
      * @return
      */
     PayNotifyHandleResult handlePayNotify(String xml);
+    /**
+     * 处理退款通知
+     * @param xml
+     * @return
+     */
+    RefundNotifyHandleResult handleRefundNotify(String xml);
 }

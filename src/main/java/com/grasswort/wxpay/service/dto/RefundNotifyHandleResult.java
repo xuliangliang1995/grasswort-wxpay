@@ -6,22 +6,21 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author xuliangliang
- * @Classname PayNotifyHandleResult.java
+ * @Classname RefundNotifyHandleResult.java
  * @Description
- * @Date 2020/4/12
+ * @Date 2020/4/13
  * @blame Java Team
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PayNotifyHandleResult {
+public class RefundNotifyHandleResult {
     /**
-     * 微信支付结果通知数据
+     * 微信支付退款结果通知消息体
      */
-    private PayNotifyRequestBody notifyBody;
+    private RefundNotifyRequestBody notifyBody;
     /**
-     * 响应给微信的数据
+     * 响应体
      */
-    private PayNotifyResponseBody resBody;
-
+    private RefundNotifyResponseBody resBody;
 }
