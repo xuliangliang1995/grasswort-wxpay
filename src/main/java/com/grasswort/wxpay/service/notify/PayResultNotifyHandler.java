@@ -1,6 +1,5 @@
 package com.grasswort.wxpay.service.notify;
 
-import com.alibaba.fastjson.JSONObject;
 import com.grasswort.wxpay.config.WxMchProperties;
 import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.grasswort.wxpay.service.dto.PayNotifyHandleResult;
@@ -8,11 +7,18 @@ import com.grasswort.wxpay.service.dto.PayNotifyRequestBody;
 import com.grasswort.wxpay.service.dto.PayNotifyResponseBody;
 import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.XStreamUtil;
-import com.grasswort.wxpay.util.impl.StaxonJsonXmlConverter;
+import lombok.extern.slf4j.Slf4j;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author xuliangliang
@@ -22,6 +28,7 @@ import java.util.Objects;
  * @blame Java Team
  */
 @Component
+@Slf4j
 public class PayResultNotifyHandler {
     /**
      * 签名工具
@@ -55,13 +62,30 @@ public class PayResultNotifyHandler {
      * @return
      */
     private boolean signatureVerify(String xml) {
-        String json = StaxonJsonXmlConverter.INSTANCE.xml2json(xml);
-        JSONObject jsonObj = JSONObject.parseObject(json);
-        String signature = signatureUtil.signature(jsonObj, mchProperties.getKey());
-        return Objects.equals(jsonObj.getString(SIGN_KEY), signature);
+        Document document = xml2Document(xml);
+        List<Element> elementList = document.getRootElement().elements();
+        Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
+        String signature = signatureUtil.signature(params, mchProperties.getKey());
+        return Objects.equals(params.get(SIGN_KEY), signature);
     }
 
     private final String SIGN_KEY = "sign";
     private final PayNotifyResponseBody SUCCESS_RES = new PayNotifyResponseBody(WxPayConstants.SUCCESS, "OK");
     private final PayNotifyResponseBody SIGN_CHECK_FAIL = new PayNotifyResponseBody(WxPayConstants.FAIL, "签名校验失败");
+
+    /**
+     * xml 转 document
+     * @param xml
+     * @return
+     */
+    private Document xml2Document(String xml) {
+        Document document = null;
+        try {
+            document = DocumentHelper.parseText(xml);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+            log.debug("非法 xml：{}", xml);
+        }
+        return document;
+    }
 }

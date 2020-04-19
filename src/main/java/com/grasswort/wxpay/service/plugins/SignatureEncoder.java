@@ -1,18 +1,24 @@
 package com.grasswort.wxpay.service.plugins;
 
-import com.alibaba.fastjson.JSONObject;
 import com.grasswort.wxpay.config.WxMchProperties;
-import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.XStreamUtil;
-import com.grasswort.wxpay.util.impl.StaxonJsonXmlConverter;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.dom.DOMCDATA;
+import org.dom4j.tree.DefaultText;
 
 import java.lang.reflect.Type;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author xuliangliang
@@ -35,18 +41,21 @@ public class SignatureEncoder implements Encoder {
         String xml = XStreamUtil.toXml(o);
 
         // 2. xml 转 map (JSONObject 也是 map)
-        String json = StaxonJsonXmlConverter.INSTANCE.xml2json(xml);
-        JSONObject jsonObj = JSONObject.parseObject(json);
-        JSONObject params = jsonObj.getJSONObject(WxPayConstants.XML_ROOT_NODE_NAME);
-        params.put(SIGN_TYPE, mchProperties.getSignType());
-        params.put(MCH_ID, mchProperties.getMchId());
+        Document document = xml2Document(xml);
+        Element rootElement = document.getRootElement();
 
-        // 3. 签名
+        // 3. 追加商户相关参数并转换成 map
+        rootElement.addElement(SIGN_TYPE).add(new DefaultText(mchProperties.getSignType()));;
+        rootElement.addElement(MCH_ID).add(new DefaultText(mchProperties.getMchId()));
+        List<Element> elementList = rootElement.elements();
+        Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
+
+        // 4. 签名
         String signature = signatureUtil.signature(params, mchProperties.getKey());
-        params.put(SIGN_KEY, signature);
+        rootElement.addElement(SIGN_KEY).add(new DOMCDATA(signature));
 
-        // 4. json 再转回 xml
-        String signatureXml = StaxonJsonXmlConverter.INSTANCE.json2xml(jsonObj.toJSONString());
+        // 5. document 再转 xml
+        String signatureXml = document.asXML();
         log.debug("签名后结果：{}", signatureXml);
         requestTemplate.body(signatureXml);
     }
@@ -54,4 +63,21 @@ public class SignatureEncoder implements Encoder {
     private final String SIGN_TYPE = "sign_type";
     private final String MCH_ID = "mch_id";
     private final String SIGN_KEY = "sign";
+
+    /**
+     * xml 转 document
+     * @param xml
+     * @return
+     */
+    private Document xml2Document(String xml) {
+        Document document = null;
+        try {
+            document = DocumentHelper.parseText(xml);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+            log.debug("非法 xml：{}", xml);
+        }
+        return document;
+    }
+
 }

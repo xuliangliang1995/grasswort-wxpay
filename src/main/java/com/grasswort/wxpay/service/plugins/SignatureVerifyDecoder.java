@@ -1,24 +1,29 @@
 package com.grasswort.wxpay.service.plugins;
 
-import com.alibaba.fastjson.JSONObject;
 import com.grasswort.wxpay.config.WxMchProperties;
 import com.grasswort.wxpay.exception.WxPayApiV2SignatureException;
 import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.XStreamUtil;
-import com.grasswort.wxpay.util.impl.StaxonJsonXmlConverter;
 import feign.FeignException;
 import feign.Response;
 import feign.Util;
 import feign.codec.Decoder;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author xuliangliang
@@ -53,13 +58,14 @@ public class SignatureVerifyDecoder implements Decoder {
             log.debug("微信响应消息体：{}", xml);
 
             // 2. 判断 return_code 是否是 SUCCESS
-            String json = StaxonJsonXmlConverter.INSTANCE.xml2json(xml);
-            JSONObject params = JSONObject.parseObject(json).getJSONObject(WxPayConstants.XML_ROOT_NODE_NAME);
+            Document document = xml2Document(xml);
+            List<Element> elementList = document.getRootElement().elements();
+            Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
 
-            if (WxPayConstants.SUCCESS.equals(params.getString(RETURN_CODE))) {
+            if (WxPayConstants.SUCCESS.equals(params.get(RETURN_CODE))) {
                 // 3。如果 SUCCESS，进行签名校验
                 String signature = signatureUtil.signature(params, mchProperties.getKey());
-                if (! Objects.equals(signature, params.getString(SIGN_KEY))) {
+                if (! Objects.equals(signature, params.get(SIGN_KEY))) {
                     throw new WxPayApiV2SignatureException("微信响应消息签名校验失败");
                 }
             }
@@ -69,6 +75,22 @@ public class SignatureVerifyDecoder implements Decoder {
         }
     }
 
+    /**
+     * xml 转 document
+     * @param xml
+     * @return
+     */
+    private Document xml2Document(String xml) {
+        Document document = null;
+        try {
+            document = DocumentHelper.parseText(xml);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+            log.debug("非法 xml：{}", xml);
+            throw new WxPayApiV2SignatureException("非法 xml :" + xml);
+        }
+        return document;
+    }
 
 
 }

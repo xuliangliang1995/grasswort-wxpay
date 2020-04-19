@@ -16,5 +16,5 @@ public interface ISignatureUtil {
      * @param key
      * @return
      */
-    String signature(Map<String, Object> params, String key);
+    String signature(Map<String, String> params, String key);
 }

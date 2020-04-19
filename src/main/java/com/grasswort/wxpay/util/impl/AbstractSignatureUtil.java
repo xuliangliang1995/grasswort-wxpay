@@ -28,7 +28,7 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
      * @return
      */
     @Override
-    public final String signature(Map<String, Object> params, String key) {
+    public final String signature(Map<String, String> params, String key) {
         // 1. 参数排序
         String sortedParams = sortParamsByASCII(params);
         // 2. 拼接 "&key="
@@ -56,7 +56,7 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
      * @param params
      * @return
      */
-    private final String sortParamsByASCII(Map<String, Object> params) {
+    private final String sortParamsByASCII(Map<String, String> params) {
         String[] keyArray = params.keySet().toArray(new String[params.keySet().size()]);
         // 字典排序
         Arrays.sort(keyArray);
