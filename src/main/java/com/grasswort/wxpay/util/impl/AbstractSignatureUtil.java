@@ -29,13 +29,13 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
      */
     @Override
     public final String signature(Map<String, String> params, String key) {
-        // 1. 参数排序
+        // 1. 字典排序
         String sortedParams = sortParamsByASCII(params);
         // 2. 拼接 "&key="
         String sortedParamsWithKey = sortedParams + "&key=" + key;
-        // 4. 算法计算
+        // 3. 算法计算
         String result = arithmeticEncoder(sortedParamsWithKey);
-        // 5. 转大写
+        // 4. 转大写
         return result.toUpperCase();
     }
 
