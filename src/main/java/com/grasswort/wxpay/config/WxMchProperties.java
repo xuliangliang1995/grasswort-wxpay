@@ -7,7 +7,6 @@ import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.impl.HMACSHA256Signature;
 import com.grasswort.wxpay.util.impl.MD5Signature;
 import lombok.Data;
-import org.apache.http.ssl.SSLContexts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -122,4 +121,5 @@ public class WxMchProperties {
         }
         throw new CertException("证书配置存在问题，请检查。");
     }
+
 }

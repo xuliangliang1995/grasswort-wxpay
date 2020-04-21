@@ -15,7 +15,7 @@ public class WxPayConstants {
     /**
      * 微信支付远程服务地址
      */
-    public static final String WX_PAY_SERVICE_URL = "https://api.mch.weixin.qq.com";
+    public static final String WX_PAY_SERVICE_URL = ServiceUrl.SANDBOX_SERVICE_URL;
     /**
      * application/xml
      */
@@ -24,6 +24,20 @@ public class WxPayConstants {
      * xml 根节点 name
      */
     public static final String XML_ROOT_NODE_NAME = "xml";
+
+    /**
+     * 服务地址
+     */
+    public static final class ServiceUrl {
+        /**
+         * 正式
+         */
+        public static final String OFFICIAL_SERVICE_URL = "https://api.mch.weixin.qq.com";
+        /**
+         * 沙箱
+         */
+        public static final String SANDBOX_SERVICE_URL = "https://api.mch.weixin.qq.com/sandboxnew";
+    }
 
     /**
      * 服务路由
@@ -37,6 +51,12 @@ public class WxPayConstants {
          * 退款
          */
         public static final String REFUND_PATH = "/secapi/pay/refund";
+
+        /**
+         * 注意！！！沙箱环境
+         * 获取沙箱环境密钥
+         */
+        public static final String SANDBOX_GET_SIGN_KEY = "/pay/getsignkey";
     }
 
     /**
@@ -52,6 +72,10 @@ public class WxPayConstants {
          * 退款 contextId
          */
         public static final String REFUND = "refundService";
+        /**
+         * 沙箱密钥
+         */
+        public static final String SAND_BOX_SIGN_KEY = "sandboxSignKey";
     }
 
     /**

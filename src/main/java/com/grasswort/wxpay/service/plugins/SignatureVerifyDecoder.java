@@ -9,12 +9,12 @@ import feign.FeignException;
 import feign.Response;
 import feign.Util;
 import feign.codec.Decoder;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
@@ -33,12 +33,11 @@ import java.util.stream.Collectors;
  * @blame Java Team
  */
 @Slf4j
-@Setter
 public class SignatureVerifyDecoder implements Decoder {
 
-    private ISignatureUtil signatureUtil;
+    @Autowired private ISignatureUtil signatureUtil;
 
-    private WxMchProperties mchProperties;
+    @Autowired private WxMchProperties mchProperties;
 
     private final String UTF8 = "UTF-8";
     private final String SIGN_KEY = "sign";

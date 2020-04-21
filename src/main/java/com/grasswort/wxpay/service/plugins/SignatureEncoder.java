@@ -6,7 +6,6 @@ import com.grasswort.wxpay.util.XStreamUtil;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -14,6 +13,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.dom.DOMCDATA;
 import org.dom4j.tree.DefaultText;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -28,12 +28,11 @@ import java.util.stream.Collectors;
  * @blame Java Team
  */
 @Slf4j
-@Setter
 public class SignatureEncoder implements Encoder {
 
-    private ISignatureUtil signatureUtil;
+    @Autowired private ISignatureUtil signatureUtil;
 
-    private WxMchProperties mchProperties;
+    @Autowired private WxMchProperties mchProperties;
 
     @Override
     public void encode(Object o, Type type, RequestTemplate requestTemplate) throws EncodeException {
