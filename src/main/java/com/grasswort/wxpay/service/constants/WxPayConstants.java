@@ -1,5 +1,7 @@
 package com.grasswort.wxpay.service.constants;
 
+import com.grasswort.wxpay.config.WxMchProperties;
+
 /**
  * @author xuliangliang
  * @Classname WxPayConstants.java
@@ -15,7 +17,7 @@ public class WxPayConstants {
     /**
      * 微信支付远程服务地址
      */
-    public static final String WX_PAY_SERVICE_URL = ServiceUrl.SANDBOX_SERVICE_URL;
+    public static final String WX_PAY_SERVICE_URL = WxMchProperties.SERVICE_URL_EXPRESSION;
     /**
      * application/xml
      */

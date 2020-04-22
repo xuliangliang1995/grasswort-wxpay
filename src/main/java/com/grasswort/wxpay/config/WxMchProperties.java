@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -33,8 +32,9 @@ import java.util.Arrays;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "mch")
-@PropertySource(value = "classpath:mch.properties", encoding = "UTF-8")
 public class WxMchProperties {
+
+    public static final String SERVICE_URL_EXPRESSION = "${mch.serviceUrl}";
     /**
      * 商户 id
      */
