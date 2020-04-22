@@ -7,12 +7,10 @@ import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.impl.HMACSHA256Signature;
 import com.grasswort.wxpay.util.impl.MD5Signature;
 import lombok.Data;
-import org.apache.http.ssl.SSLContexts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
@@ -34,8 +32,9 @@ import java.util.Arrays;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "mch")
-@PropertySource(value = "classpath:mch.properties", encoding = "UTF-8")
 public class WxMchProperties {
+
+    public static final String SERVICE_URL_EXPRESSION = "${mch.serviceUrl}";
     /**
      * 商户 id
      */
@@ -122,4 +121,5 @@ public class WxMchProperties {
         }
         throw new CertException("证书配置存在问题，请检查。");
     }
+
 }

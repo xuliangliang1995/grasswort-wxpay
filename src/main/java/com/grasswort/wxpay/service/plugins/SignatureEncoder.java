@@ -6,16 +6,19 @@ import com.grasswort.wxpay.util.XStreamUtil;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.dom.DOMCDATA;
 import org.dom4j.tree.DefaultText;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,12 +31,11 @@ import java.util.stream.Collectors;
  * @blame Java Team
  */
 @Slf4j
-@Setter
 public class SignatureEncoder implements Encoder {
 
-    private ISignatureUtil signatureUtil;
+    @Autowired private ISignatureUtil signatureUtil;
 
-    private WxMchProperties mchProperties;
+    @Autowired private WxMchProperties mchProperties;
 
     @Override
     public void encode(Object o, Type type, RequestTemplate requestTemplate) throws EncodeException {
@@ -48,7 +50,19 @@ public class SignatureEncoder implements Encoder {
         rootElement.addElement(SIGN_TYPE).add(new DefaultText(mchProperties.getSignType()));;
         rootElement.addElement(MCH_ID).add(new DefaultText(mchProperties.getMchId()));
         List<Element> elementList = rootElement.elements();
-        Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
+
+        Map<String, String> params = new HashMap<>();
+        Iterator<Element> iterator = elementList.iterator();
+        while (iterator.hasNext()) {
+            Element element = iterator.next();
+            String key = element.getName();
+            String value = element.getStringValue();
+            if (StringUtils.isNotBlank(value)) {
+                params.put(key, value);
+            } else {
+                rootElement.remove(element);
+            }
+        }
 
         // 4. 签名
         String signature = signatureUtil.signature(params, mchProperties.getKey());
