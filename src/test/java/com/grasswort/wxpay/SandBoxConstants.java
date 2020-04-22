@@ -9,13 +9,18 @@ package com.grasswort.wxpay;
  */
 public class SandBoxConstants {
 
+    public static final String APP_ID = "wx2421b1c4370ec43b";
+
     /**
-     * 沙箱用例费用（不能更改）
+     * 沙箱用例
      */
-    public static class Fee {
+    public static class SandBoxCase {
         /**
-         * 支付成功用例费用
+         * 成功用例，但不通知
          */
-        public static final int UNIFIED_ORDER_SUCCESS_FEE = 101;
+        public static class SuccessNotNotify {
+            public static final int FEE = 130;
+            public static final String OUT_TRADE_NO = "20200422";
+        }
     }
 }

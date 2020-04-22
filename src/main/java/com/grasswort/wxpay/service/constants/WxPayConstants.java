@@ -53,7 +53,10 @@ public class WxPayConstants {
          * 退款
          */
         public static final String REFUND_PATH = "/secapi/pay/refund";
-
+        /**
+         * 订单查询路径
+         */
+        public static final String ORDER_QUERY_PATH = "/pay/orderquery";
         /**
          * 注意！！！沙箱环境
          * 获取沙箱环境密钥
@@ -67,6 +70,10 @@ public class WxPayConstants {
      */
     public static final class ContextId {
         /**
+         * 沙箱密钥
+         */
+        public static final String SAND_BOX_SIGN_KEY = "sandboxSignKey";
+        /**
          * 统一下单 contextId
          */
         public static final String UNIFIED_ORDER = "unifiedOrderService";
@@ -75,9 +82,9 @@ public class WxPayConstants {
          */
         public static final String REFUND = "refundService";
         /**
-         * 沙箱密钥
+         * 订单支付状态查询
          */
-        public static final String SAND_BOX_SIGN_KEY = "sandboxSignKey";
+        public static final String ORDER_QUERY = "orderQuery";
     }
 
     /**

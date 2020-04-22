@@ -1,6 +1,6 @@
 package com.grasswort.wxpay.service;
 
-import com.grasswort.wxpay.service.config.UnifiedOrderConfiguration;
+import com.grasswort.wxpay.service.config.SignatureConfiguration;
 import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.grasswort.wxpay.service.dto.UnifiedOrderRequestBody;
 import com.grasswort.wxpay.service.dto.UnifiedOrderResponseBody;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @blame Java Team
  */
 @FeignClient(name = WxPayConstants.WX_PAY_SERVER_NAME, contextId = WxPayConstants.ContextId.UNIFIED_ORDER,
-        url = WxPayConstants.WX_PAY_SERVICE_URL, configuration = UnifiedOrderConfiguration.class)
+        url = WxPayConstants.WX_PAY_SERVICE_URL, configuration = SignatureConfiguration.class)
 public interface IUnifiedOrderService {
 
     /**

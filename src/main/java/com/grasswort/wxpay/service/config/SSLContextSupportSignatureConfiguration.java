@@ -13,12 +13,12 @@ import javax.net.ssl.SSLContext;
 
 /**
  * @author xuliangliang
- * @Classname RefundConfiguration.java
+ * @Classname SSLContextSupportSignatureConfiguration.java
  * @Description
  * @Date 2020/4/10
  * @blame Java Team
  */
-public class RefundConfiguration {
+public class SSLContextSupportSignatureConfiguration {
 
     @Bean
     public Encoder encoder() {
