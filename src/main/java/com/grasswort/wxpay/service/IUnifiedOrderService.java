@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * @author xuliangliang
  * @Classname IUnifiedOrderService.java
- * @Description 微信支付统一下单服务
+ * @Description 统一下单服务
  * @Date 2020/4/5
  * @blame Java Team
  */

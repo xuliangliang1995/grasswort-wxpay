@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 /**
  * @author xuliangliang
  * @Classname IOrderQueryService.java
- * @Description
+ * @Description 订单查询服务
  * @Date 2020/4/22
  * @blame Java Team
  */

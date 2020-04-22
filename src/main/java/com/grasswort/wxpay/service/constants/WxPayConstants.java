@@ -58,6 +58,14 @@ public class WxPayConstants {
          */
         public static final String ORDER_QUERY_PATH = "/pay/orderquery";
         /**
+         * 关闭订单
+         */
+        public static final String CLOSE_ORDER_PATH = "/pay/closeorder";
+        /**
+         * 退款查询
+         */
+        public static final String REFUND_QUERY_PATH = "/pay/refundquery";
+        /**
          * 注意！！！沙箱环境
          * 获取沙箱环境密钥
          */
@@ -85,6 +93,14 @@ public class WxPayConstants {
          * 订单支付状态查询
          */
         public static final String ORDER_QUERY = "orderQuery";
+        /**
+         * 关闭订单
+         */
+        public static final String CLOSE_ORDER = "closeOrder";
+        /**
+         * 退款查询
+         */
+        public static final String REFUND_QUERY = "refundQuery";
     }
 
     /**

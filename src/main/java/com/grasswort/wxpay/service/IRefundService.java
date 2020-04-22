@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * @author xuliangliang
  * @Classname IRefundService.java
- * @Description 微信退款服务
+ * @Description 订单退款服务
  * @Date 2020/4/10
  * @blame Java Team
  */
