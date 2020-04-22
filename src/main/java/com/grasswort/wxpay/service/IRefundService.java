@@ -1,6 +1,6 @@
 package com.grasswort.wxpay.service;
 
-import com.grasswort.wxpay.service.config.RefundConfiguration;
+import com.grasswort.wxpay.service.config.SSLContextSupportSignatureConfiguration;
 import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.grasswort.wxpay.service.dto.RefundRequestBody;
 import com.grasswort.wxpay.service.dto.RefundResponseBody;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @blame Java Team
  */
 @FeignClient(name = WxPayConstants.WX_PAY_SERVER_NAME, contextId = WxPayConstants.ContextId.REFUND,
-        url = WxPayConstants.WX_PAY_SERVICE_URL, configuration = RefundConfiguration.class)
+        url = WxPayConstants.WX_PAY_SERVICE_URL, configuration = SSLContextSupportSignatureConfiguration.class)
 public interface IRefundService {
     /**
      * 微信退款服务

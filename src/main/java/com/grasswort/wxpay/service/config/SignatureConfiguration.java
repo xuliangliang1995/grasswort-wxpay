@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
  * @Date 2020/4/5
  * @blame Java Team
  */
-public class UnifiedOrderConfiguration {
+public class SignatureConfiguration {
 
     @Bean
     public Encoder encoder() {

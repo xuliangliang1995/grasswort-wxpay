@@ -1,5 +1,6 @@
 package com.grasswort.wxpay.service;
 
+import com.grasswort.wxpay.BaseSpringTest;
 import com.grasswort.wxpay.SandBoxConstants;
 import com.grasswort.wxpay.service.dto.UnifiedOrderRequestBody;
 import com.grasswort.wxpay.service.dto.UnifiedOrderResponseBody;
@@ -8,10 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,9 +23,7 @@ import static org.junit.Assert.*;
  * @Date 2020/4/22
  * @blame Java Team
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class IUnifiedOrderServiceTest {
+public class IUnifiedOrderServiceTest extends BaseSpringTest {
     @Autowired
     private IUnifiedOrderService unifiedOrderService;
 
@@ -39,17 +35,17 @@ public class IUnifiedOrderServiceTest {
     public void setUp() throws Exception {
         sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         requestBody = UnifiedOrderRequestBody.builder()
-                .appid("wx2421b1c4370ec43b")
+                .appid(SandBoxConstants.APP_ID)
                 .openid("oUpF8uMEb4qRXf22hE3X68TekukE")
                 .attach("附加数据")
                 .body("商品描述")
                 .detail("商品详情")
                 .deviceInfo("设备信息")
                 .feeType("CNY")
-                .totalFee(SandBoxConstants.Fee.UNIFIED_ORDER_SUCCESS_FEE)
+                .totalFee(SandBoxConstants.SandBoxCase.SuccessNotNotify.FEE)
                 .nonceStr(RandomStringUtils.randomAlphabetic(32))
                 .notifyUrl("http://localhost/notify")
-                .outTradeNo("商户订单号")
+                .outTradeNo(SandBoxConstants.SandBoxCase.SuccessNotNotify.OUT_TRADE_NO)
                 .productId("1")
                 .spbillCreateIp("127.0.0.1")
                 .timeExpire(sdf.format(new Date()))
