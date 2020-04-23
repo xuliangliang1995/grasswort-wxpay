@@ -41,10 +41,10 @@ public class IRefundQueryServiceTest extends BaseSpringTest {
     }
 
     @Test
-    @Ignore
     public void refundQuery() {
         assertNotNull(refundQueryService);
         RefundQueryResponseBody responseBody = refundQueryService.refundQuery(requestBody);
-        assertEquals("微信支付退款查询通信失败", "SUCCESS", responseBody.getReturnCode());
+        // 未找到退款查询对应沙箱用例
+        assertEquals("微信支付退款查询通信失败", "FAIL", responseBody.getReturnCode());
     }
 }

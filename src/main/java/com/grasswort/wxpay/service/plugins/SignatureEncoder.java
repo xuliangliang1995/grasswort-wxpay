@@ -2,7 +2,7 @@ package com.grasswort.wxpay.service.plugins;
 
 import com.grasswort.wxpay.config.WxMchProperties;
 import com.grasswort.wxpay.util.ISignatureUtil;
-import com.grasswort.wxpay.util.XStreamUtil;
+import com.grasswort.wxpay.util.JAXBUtil;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.codec.Encoder;
@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author xuliangliang
@@ -40,7 +39,7 @@ public class SignatureEncoder implements Encoder {
     @Override
     public void encode(Object o, Type type, RequestTemplate requestTemplate) throws EncodeException {
         // 1. 对象转 xml
-        String xml = XStreamUtil.toXml(o);
+        String xml = JAXBUtil.marshal(o);
 
         // 2. xml 转 map (JSONObject 也是 map)
         Document document = xml2Document(xml);

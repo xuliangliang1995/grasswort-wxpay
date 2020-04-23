@@ -1,10 +1,14 @@
 package com.grasswort.wxpay.service.dto;
 
 import com.grasswort.wxpay.service.constants.WxPayConstants;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author xuliangliang
@@ -16,18 +20,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
 public class RefundNotifyResponseBody {
     /**
      * 返回状态码
      * SUCCESS/FAIL
      * SUCCESS表示商户接收通知成功并校验成功
      */
-    @XStreamAlias("return_code")
+    @XmlElement(name = "return_code")
     private String returnCode;
     /**
      * 返回信息，如非空，为错误原因
      */
-    @XStreamAlias("return_msg")
+    @XmlElement(name = "return_msg")
     private String returnMsg;
 }

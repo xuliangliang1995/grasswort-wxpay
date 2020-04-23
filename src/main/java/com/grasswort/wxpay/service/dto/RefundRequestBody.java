@@ -1,14 +1,19 @@
 package com.grasswort.wxpay.service.dto;
 
 import com.grasswort.wxpay.service.constants.WxPayConstants;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author xuliangliang
@@ -19,7 +24,10 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @Builder
-@XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
+@NoArgsConstructor
+@AllArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
 public class RefundRequestBody {
     /**
      * 小程序ID
@@ -32,19 +40,19 @@ public class RefundRequestBody {
      */
     @NotBlank
     @Length(max = 32)
-    @XStreamAlias("nonce_str")
+    @XmlElement(name = "nonce_str")
     private String nonceStr;
     /**
      * 微信订单号
      */
     @Length(max = 32)
-    @XStreamAlias("transaction_id")
+    @XmlElement(name = "transaction_id")
     private String transactionId;
     /**
      * 商户订单号
      */
     @Length(max = 32)
-    @XStreamAlias("out_trade_no")
+    @XmlElement(name = "out_trade_no")
     private String outTradeNo;
     /**
      * 商户退款单号
@@ -52,34 +60,34 @@ public class RefundRequestBody {
      */
     @NotBlank
     @Length(max = 64)
-    @XStreamAlias("out_refund_no")
+    @XmlElement(name = "out_refund_no")
     private String outRefundNo;
     /**
      * 订单总金额，单位为分，只能为整数，详见支付金额
      */
     @NotNull
     @Min(1)
-    @XStreamAlias("total_fee")
+    @XmlElement(name = "total_fee")
     private Integer totalFee;
     /**
      * 退款金额
      */
     @NotNull
     @Min(1)
-    @XStreamAlias("refund_fee")
+    @XmlElement(name = "refund_fee")
     private Integer refundFee;
     /**
      * 货币种类. 默认 CNY
      */
     @Length(max = 8)
-    @XStreamAlias("refund_fee_type")
+    @XmlElement(name = "refund_fee_type")
     private String refundFeeType;
     /**
      * 退款原因
      * 注意：若订单退款金额≤1元，且属于部分退款，则不会在退款消息中体现退款原因
      */
     @Length(max = 80)
-    @XStreamAlias("refund_desc")
+    @XmlElement(name = "refund_desc")
     private String refundDesc;
     /**
      * 退款资金来源
@@ -88,7 +96,7 @@ public class RefundRequestBody {
      * 仅针对老资金流商户使用
      */
     @Length(max = 30)
-    @XStreamAlias("refund_account")
+    @XmlElement(name = "refund_account")
     private String refundAccount;
     /**
      * 退款结果通知 URL
@@ -96,6 +104,6 @@ public class RefundRequestBody {
      * 如果参数中传了notify_url，则商户平台上配置的回调地址将不会生效
      */
     @Length(max = 256)
-    @XStreamAlias("notify_url")
+    @XmlElement(name = "notify_url")
     private String notifyUrl;
 }

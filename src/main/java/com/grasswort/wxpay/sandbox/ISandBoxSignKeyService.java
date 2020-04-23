@@ -18,7 +18,7 @@ public interface ISandBoxSignKeyService {
 
 
     /**
-     * 微信支付统一下单
+     * 获取沙箱密钥（测试环境使用，模拟支付）
      * @param requestBody
      * @return
      */

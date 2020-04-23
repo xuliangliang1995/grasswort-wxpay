@@ -1,10 +1,8 @@
 package com.grasswort.wxpay.service.plugins;
 
-import com.grasswort.wxpay.config.WxMchProperties;
 import com.grasswort.wxpay.exception.WxPayApiV2SignatureException;
 import com.grasswort.wxpay.service.constants.WxPayConstants;
-import com.grasswort.wxpay.util.ISignatureUtil;
-import com.grasswort.wxpay.util.XStreamUtil;
+import com.grasswort.wxpay.util.JAXBUtil;
 import feign.FeignException;
 import feign.Response;
 import feign.Util;
@@ -22,7 +20,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -35,9 +32,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SignatureVerifyDecoder implements Decoder {
 
-    @Autowired private ISignatureUtil signatureUtil;
-
-    @Autowired private WxMchProperties mchProperties;
+    @Autowired private PluginXmlSignatureVerify xmlSignatureVerify;
 
     private final String UTF8 = "UTF-8";
     private final String SIGN_KEY = "sign";
@@ -63,14 +58,13 @@ public class SignatureVerifyDecoder implements Decoder {
 
             if (WxPayConstants.SUCCESS.equals(params.get(RETURN_CODE))) {
                 // 3。如果 SUCCESS，进行签名校验
-                String signature = signatureUtil.signature(params, mchProperties.getKey());
-                if (! Objects.equals(signature, params.get(SIGN_KEY))) {
+                if (! xmlSignatureVerify.signatureVerify(xml)) {
                     throw new WxPayApiV2SignatureException("微信响应消息签名校验失败");
                 }
             }
 
             // 4. xml 转 java 对象
-            return XStreamUtil.fromXml(xml, (Class) type);
+            return JAXBUtil.unmarshal(xml, (Class) type);
         }
     }
 

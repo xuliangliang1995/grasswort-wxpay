@@ -1,12 +1,17 @@
 package com.grasswort.wxpay.service.dto;
 
 import com.grasswort.wxpay.service.constants.WxPayConstants;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author xuliangliang
@@ -17,7 +22,10 @@ import javax.validation.constraints.NotBlank;
  */
 @Data
 @Builder
-@XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
+@NoArgsConstructor
+@AllArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
 public class OrderQueryRequestBody {
     /**
      * 微信分配的微信公众平台（或微信开放平台）appid
@@ -31,7 +39,7 @@ public class OrderQueryRequestBody {
      */
     @NotBlank
     @Length(max = 32)
-    @XStreamAlias("nonce_str")
+    @XmlElement(name = "nonce_str")
     private String nonceStr;
 
     /**
@@ -39,13 +47,13 @@ public class OrderQueryRequestBody {
      * 和 out_trade_no 二选一
      */
     @Length(max = 32)
-    @XStreamAlias("transaction_id")
+    @XmlElement(name = "transaction_id")
     private String transactionId;
     /**
      * 商户系统内部订单号，要求32个字符内，只能是数字、大小写字母_-|*@ ，且在同一个商户号下唯一。
      */
     @Length(max = 32)
-    @XStreamAlias("out_trade_no")
+    @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 
 }

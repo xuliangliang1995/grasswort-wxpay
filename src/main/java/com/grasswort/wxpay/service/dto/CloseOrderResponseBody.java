@@ -1,8 +1,14 @@
 package com.grasswort.wxpay.service.dto;
 
 import com.grasswort.wxpay.service.constants.WxPayConstants;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author xuliangliang
@@ -12,23 +18,26 @@ import lombok.Data;
  * @blame Java Team
  */
 @Data
-@XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
+@NoArgsConstructor
+@AllArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
 public class CloseOrderResponseBody {
     /**
      * SUCCESS/FAIL
      */
-    @XStreamAlias("return_code")
+    @XmlElement(name = "return_code")
     private String returnCode;
     /**
      * 返回信息，如非空，为错误原因
      */
-    @XStreamAlias("return_msg")
+    @XmlElement(name = "return_msg")
     private String returnMsg;
     /**
      * appid
      */
     private String appid;
-    @XStreamAlias("mch_id")
+    @XmlElement(name = "mch_id")
     /**
      * 微信商户号
      */
@@ -36,7 +45,7 @@ public class CloseOrderResponseBody {
     /**
      * 随机字符串
      */
-    @XStreamAlias("nonce_str")
+    @XmlElement(name = "nonce_str")
     private String nonceStr;
     /**
      * 签名
@@ -45,22 +54,22 @@ public class CloseOrderResponseBody {
     /**
      * 	SUCCESS/FAIL
      */
-    @XStreamAlias("result_code")
+    @XmlElement(name = "result_code")
     private String resultCode;
     /**
      * 对于业务执行的详细描述
      */
-    @XStreamAlias("result_msg")
+    @XmlElement(name = "result_msg")
     private String resultMsg;
     /**
      * 错误代码
      */
-    @XStreamAlias("err_code")
+    @XmlElement(name = "err_code")
     private String errCode;
     /**
      * 错误代码描述
      */
-    @XStreamAlias("err_code_des")
+    @XmlElement(name = "err_code_des")
     private String errCodeDes;
 
 

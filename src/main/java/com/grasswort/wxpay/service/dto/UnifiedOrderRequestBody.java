@@ -1,14 +1,19 @@
 package com.grasswort.wxpay.service.dto;
 
 import com.grasswort.wxpay.service.constants.WxPayConstants;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author xuliangliang
@@ -19,7 +24,10 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Builder
-@XStreamAlias(WxPayConstants.XML_ROOT_NODE_NAME)
+@NoArgsConstructor
+@AllArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
 public class UnifiedOrderRequestBody {
     /**
      * 微信公众平台或者开放平台 appId
@@ -31,14 +39,14 @@ public class UnifiedOrderRequestBody {
      * 设备号（非必填）。自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"
      */
     @Length(max = 32)
-    @XStreamAlias("device_info")
+    @XmlElement(name = "device_info")
     private String deviceInfo;
     /**
      * 随机字符串
      */
     @Length(max = 32)
     @NotBlank
-    @XStreamAlias("nonce_str")
+    @XmlElement(name = "nonce_str")
     private String nonceStr;
     /**
      * 商品描述（相当于商品标题） 128 字以内
@@ -61,46 +69,46 @@ public class UnifiedOrderRequestBody {
      */
     @NotBlank
     @Length(min = 32, max = 32)
-    @XStreamAlias("out_trade_no")
+    @XmlElement(name = "out_trade_no")
     private String outTradeNo;
     /**
      * 标记币种
      */
     @NotBlank
     @Length(max = 16)
-    @XStreamAlias("fee_type")
+    @XmlElement(name = "fee_type")
     private String feeType = "CNY";
     /**
      * 标价金额（分），对应币种最小单位
      */
     @NotNull
     @Size(min = 0)
-    @XStreamAlias("total_fee")
+    @XmlElement(name = "total_fee")
     private Integer totalFee;
     /**
      * 调用微信支付 API 的机器 IP
      */
     @NotBlank
     @Length(max = 64)
-    @XStreamAlias("spbill_create_ip")
+    @XmlElement(name = "spbill_create_ip")
     private String spbillCreateIp;
     /**
      * 交易起始时间。格式： yyyyMMddHHmmss
      */
     @Length(max = 14)
-    @XStreamAlias("time_start")
+    @XmlElement(name = "time_start")
     private String timeStart;
     /**
      * 交易失效时间
      */
     @Length(max = 14)
-    @XStreamAlias("time_expire")
+    @XmlElement(name = "time_expire")
     private String timeExpire;
     /**
      * 订单优惠标记
      */
     @Length(max = 32)
-    @XStreamAlias("goods_tag")
+    @XmlElement(name = "goods_tag")
     private String goodsTag;
     /**
      * 通知地址
@@ -108,27 +116,27 @@ public class UnifiedOrderRequestBody {
      */
     @NotBlank
     @Length(max = 256)
-    @XStreamAlias("notify_url")
+    @XmlElement(name = "notify_url")
     private String notifyUrl;
     /**
      * 交易类型
      */
     @Length(max = 16)
-    @XStreamAlias("trade_type")
+    @XmlElement(name = "trade_type")
     private String tradeType;
     /**
      * 商品ID
      * trade_type=NATIVE时，此参数必传。此参数为二维码中包含的商品ID，商户自行定义。
      */
     @Length(max = 32)
-    @XStreamAlias("product_id")
+    @XmlElement(name = "product_id")
     private String productId;
     /**
      *  指定支付方式
      * 	上传此参数no_credit--可限制用户不能使用信用卡支付
      */
     @Length(max = 32)
-    @XStreamAlias("limit_pay")
+    @XmlElement(name = "limit_pay")
     private String limitPay;
     /**
      * 用户标识
@@ -146,6 +154,6 @@ public class UnifiedOrderRequestBody {
      * 场景信息（json）
      */
     @Length(max = 256)
-    @XStreamAlias("scene_info")
+    @XmlElement(name = "scene_info")
     private String sceneInfo;
 }
