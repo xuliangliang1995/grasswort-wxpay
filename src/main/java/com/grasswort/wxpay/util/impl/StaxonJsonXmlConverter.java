@@ -51,9 +51,9 @@ public enum StaxonJsonXmlConverter implements IJsonXmlConverter {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            input.close();
             try {
                 output.close();
-                input.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -83,9 +83,9 @@ public enum StaxonJsonXmlConverter implements IJsonXmlConverter {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            input.close();
             try {
                 output.close();
-                input.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
