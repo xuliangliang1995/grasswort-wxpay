@@ -1,6 +1,6 @@
 package com.grasswort.wxpay.util.impl;
 
-import com.grasswort.wxpay.exception.WxPayApiV2SignatureException;
+import com.grasswort.wxpay.exception.WxPaySignatureException;
 import com.grasswort.wxpay.util.ISignatureUtil;
 
 import java.util.Arrays;
@@ -77,6 +77,6 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
         if (sortedParams != null && sortedParams.length() > 0) {
             return sortedParams;
         }
-        throw new WxPayApiV2SignatureException("签名 ASCII 排序阶段出现异常，排序结果为空白字符串");
+        throw new WxPaySignatureException("签名算法 ASCII 排序阶段出现异常");
     }
 }

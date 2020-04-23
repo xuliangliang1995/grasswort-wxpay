@@ -1,10 +1,14 @@
 package com.grasswort.wxpay.service.dto;
 
+import com.grasswort.wxpay.service.constants.WxPayConstants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author xuliangliang
@@ -16,6 +20,8 @@ import javax.xml.bind.annotation.XmlElement;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
 public class RefundNotifyReqInfo {
     /**
      * 微信订单号

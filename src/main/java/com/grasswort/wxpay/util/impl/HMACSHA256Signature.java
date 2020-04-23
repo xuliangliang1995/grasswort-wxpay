@@ -1,6 +1,6 @@
 package com.grasswort.wxpay.util.impl;
 
-import com.grasswort.wxpay.exception.WxPayApiV2SignatureException;
+import com.grasswort.wxpay.exception.WxPaySignatureException;
 import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.Mac;
@@ -33,7 +33,7 @@ public class HMACSHA256Signature extends AbstractSignatureUtil {
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         }
-        throw new WxPayApiV2SignatureException("执行 HMAC-SHA256 签名算法时出现异常");
+        throw new WxPaySignatureException("执行 HMAC-SHA256 签名算法时出现异常");
     }
 
     private String sha256HMACEncode(String str) throws NoSuchAlgorithmException, InvalidKeyException {
@@ -41,7 +41,7 @@ public class HMACSHA256Signature extends AbstractSignatureUtil {
         String key = Optional.ofNullable(str)
                 .filter(s -> null != s && s.length() > 0 && s.contains(KEY_MARKER))
                 .map(s -> s.substring(s.indexOf(KEY_MARKER) + KEY_MARKER.length()))
-                .orElseThrow(() -> new WxPayApiV2SignatureException("执行 HMAC-SHA256 签名时字符串中未检测到 key"));
+                .orElseThrow(() -> new WxPaySignatureException("执行 HMAC-SHA256 签名时字符串中未检测到 key"));
 
         Mac sha256HMAC = Mac.getInstance(Arithmetic);
         SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), Arithmetic);

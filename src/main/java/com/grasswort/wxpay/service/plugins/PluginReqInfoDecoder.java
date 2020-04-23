@@ -4,9 +4,6 @@ import com.grasswort.wxpay.config.WxMchProperties;
 import com.grasswort.wxpay.exception.WxRefundNotifyDecodeException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.BadPaddingException;
@@ -39,14 +36,8 @@ public class PluginReqInfoDecoder {
      * @param reqInfo
      * @return
      */
-    public Document decodeReqInfo2XmlDocument(String reqInfo) {
-        String xml = decodeReqInfo2Xml(reqInfo);
-        try {
-            return DocumentHelper.parseText(xml);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-        throw new WxRefundNotifyDecodeException();
+    public String decodeReqInfo2XmlDocument(String reqInfo) {
+        return decodeReqInfo2Xml(reqInfo);
     }
 
 

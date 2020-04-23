@@ -51,10 +51,15 @@ public class RefundNotifyRequestBody {
      */
     @XmlElement(name = "nonce_str")
     private String nonceStr;
+
+    /**
+     * 加密消息体
+     */
+    @XmlElement(name = "req_info")
+    private String reqInfo;
     /**
      * 加密信息请用商户秘钥进行解密，详见解密方式
      */
-    @XmlElement(name = "req_info")
-    private RefundNotifyReqInfo reqInfo;
+    private RefundNotifyReqInfo decodedReqInfo;
 
 }

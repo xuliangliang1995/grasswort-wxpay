@@ -2,10 +2,9 @@ package com.grasswort.wxpay.service.plugins;
 
 import com.grasswort.wxpay.config.WxMchProperties;
 import com.grasswort.wxpay.util.ISignatureUtil;
+import com.grasswort.wxpay.util.Xml2DocUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.stereotype.Component;
 
@@ -42,26 +41,12 @@ public class PluginXmlSignatureVerify {
      * @return
      */
     public boolean signatureVerify(String xml) {
-        Document document = xml2Document(xml);
+        Document document = Xml2DocUtil.xml2Document(xml);
         List<Element> elementList = document.getRootElement().elements();
         Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
         String signature = signatureUtil.signature(params, mchProperties.getKey());
         return Objects.equals(params.get(SIGN_KEY), signature);
     }
 
-    /**
-     * xml 转 document
-     * @param xml
-     * @return
-     */
-    private Document xml2Document(String xml) {
-        Document document = null;
-        try {
-            document = DocumentHelper.parseText(xml);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-            log.debug("非法 xml：{}", xml);
-        }
-        return document;
-    }
+
 }

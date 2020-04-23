@@ -1,7 +1,7 @@
 package com.grasswort.wxpay.config;
 
-import com.grasswort.wxpay.exception.CertException;
-import com.grasswort.wxpay.exception.UnSupportSignatureArithmeticException;
+import com.grasswort.wxpay.exception.WxPayCertException;
+import com.grasswort.wxpay.exception.UnsupportedArithmeticException;
 import com.grasswort.wxpay.service.constants.SignatureArithmeticEnum;
 import com.grasswort.wxpay.util.ISignatureUtil;
 import com.grasswort.wxpay.util.impl.HMACSHA256Signature;
@@ -70,7 +70,7 @@ public class WxMchProperties {
     public ISignatureUtil signatureUtil() {
         SignatureArithmeticEnum signatureArithmeticEnum = Arrays.stream(SignatureArithmeticEnum.values())
                 .filter(arithmetic -> arithmetic.getValue().equals(signType))
-                .findFirst().orElseThrow(() -> new UnSupportSignatureArithmeticException(signType));
+                .findFirst().orElseThrow(() -> new UnsupportedArithmeticException(signType));
 
         switch (signatureArithmeticEnum) {
             case HMAC_SHA256:
@@ -119,7 +119,7 @@ public class WxMchProperties {
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
-        throw new CertException("证书配置存在问题，请检查。");
+        throw new WxPayCertException("证书配置存在问题，请检查。");
     }
 
 }

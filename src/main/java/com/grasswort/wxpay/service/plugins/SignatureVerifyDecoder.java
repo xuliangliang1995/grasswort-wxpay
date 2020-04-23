@@ -1,16 +1,15 @@
 package com.grasswort.wxpay.service.plugins;
 
-import com.grasswort.wxpay.exception.WxPayApiV2SignatureException;
+import com.grasswort.wxpay.exception.WxPaySignatureVerifyException;
 import com.grasswort.wxpay.service.constants.WxPayConstants;
 import com.grasswort.wxpay.util.JAXBUtil;
+import com.grasswort.wxpay.util.Xml2DocUtil;
 import feign.FeignException;
 import feign.Response;
 import feign.Util;
 import feign.codec.Decoder;
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,6 @@ public class SignatureVerifyDecoder implements Decoder {
     @Autowired private PluginXmlSignatureVerify xmlSignatureVerify;
 
     private final String UTF8 = "UTF-8";
-    private final String SIGN_KEY = "sign";
     private final String RETURN_CODE = "return_code";
 
     @Override
@@ -52,14 +50,14 @@ public class SignatureVerifyDecoder implements Decoder {
             log.debug("微信响应消息体：{}", xml);
 
             // 2. 判断 return_code 是否是 SUCCESS
-            Document document = xml2Document(xml);
+            Document document = Xml2DocUtil.xml2Document(xml);
             List<Element> elementList = document.getRootElement().elements();
             Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
 
             if (WxPayConstants.SUCCESS.equals(params.get(RETURN_CODE))) {
                 // 3。如果 SUCCESS，进行签名校验
                 if (! xmlSignatureVerify.signatureVerify(xml)) {
-                    throw new WxPayApiV2SignatureException("微信响应消息签名校验失败");
+                    throw new WxPaySignatureVerifyException();
                 }
             }
 
@@ -68,22 +66,6 @@ public class SignatureVerifyDecoder implements Decoder {
         }
     }
 
-    /**
-     * xml 转 document
-     * @param xml
-     * @return
-     */
-    private Document xml2Document(String xml) {
-        Document document = null;
-        try {
-            document = DocumentHelper.parseText(xml);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-            log.debug("非法 xml：{}", xml);
-            throw new WxPayApiV2SignatureException("非法 xml :" + xml);
-        }
-        return document;
-    }
 
 
 }
