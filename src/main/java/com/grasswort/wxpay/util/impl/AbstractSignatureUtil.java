@@ -68,15 +68,15 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
                     String value = params.get(key) !=  null ? params.get(key).toString() : null;
                     return (value != null && value.length() > 0)
                             ? (key + "=" + value)
-                            : "";
+                            : null;
                 })
                 // 过滤掉空白字符串
-                .filter(str -> str != null && str.length() > 0)
+                .filter(str -> str != null)
                 .reduce((a, b) -> a + "&" + b)
                 .orElse("");
         if (sortedParams != null && sortedParams.length() > 0) {
             return sortedParams;
         }
-        throw new WxPayApiV2SignatureException("签名 ASCII 阶段出现异常，排序结果为空白字符串");
+        throw new WxPayApiV2SignatureException("签名 ASCII 排序阶段出现异常，排序结果为空白字符串");
     }
 }
