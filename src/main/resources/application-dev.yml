@@ -2,7 +2,7 @@ mch:
   mchId: 1583942911
   key: 304f71c77bfc7e1d138a181a1110020e
   signType: MD5
-  certPath: C:\\Users\\grass\\.cert\\bladderwort\\apiclient_cert.p12
+  certPath: /Users/xuliang/.cert/1583942911_20200421_cert/apiclient_cert.p12
   certPwd: ${mch.mchId}
   serviceUrl: https://api.mch.weixin.qq.com/sandboxnew
 
