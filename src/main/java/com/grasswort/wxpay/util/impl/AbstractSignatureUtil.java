@@ -2,6 +2,7 @@ package com.grasswort.wxpay.util.impl;
 
 import com.grasswort.wxpay.exception.WxPaySignatureException;
 import com.grasswort.wxpay.util.ISignatureUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +61,7 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
         String[] keyArray = params.keySet().toArray(new String[params.keySet().size()]);
         // 字典排序
         Arrays.sort(keyArray);
-        String sortedParams = Stream.of(keyArray)
+        return Stream.of(keyArray)
                 // 排除 sign
                 .filter(key -> ! EXCLUDE_SIGN_KEYS.contains(key))
                 .map(key -> {
@@ -73,10 +74,7 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
                 // 过滤掉空白字符串
                 .filter(str -> str != null)
                 .reduce((a, b) -> a + "&" + b)
-                .orElse("");
-        if (sortedParams != null && sortedParams.length() > 0) {
-            return sortedParams;
-        }
-        throw new WxPaySignatureException("签名算法 ASCII 排序阶段出现异常");
+                .filter(str -> StringUtils.isNotBlank(str))
+                .orElseThrow(() -> new WxPaySignatureException("签名算法 ASCII 排序阶段出现异常"));
     }
 }

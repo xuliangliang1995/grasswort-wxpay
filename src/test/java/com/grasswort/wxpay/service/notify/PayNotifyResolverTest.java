@@ -29,7 +29,7 @@ public class PayNotifyResolverTest extends BaseSpringTest {
 
     @Mock private PluginXmlSignatureVerify pluginXmlSignatureVerify;
 
-    @InjectMocks private PayNotifyResolver notifyHandler;
+    @InjectMocks private PayNotifyResolver notifyResolver;
 
     private String notifyXml;
 
@@ -48,7 +48,7 @@ public class PayNotifyResolverTest extends BaseSpringTest {
 
     @Test
     public void handlePayNotify() {
-        PayNotifyRequestBody requestBody = notifyHandler.resolvePayNotify(notifyXml);
+        PayNotifyRequestBody requestBody = notifyResolver.resolvePayNotify(notifyXml);
         assertNotNull(requestBody);
         assertEquals("SUCCESS", requestBody.getReturnCode());
         assertEquals("wx2421b1c4370ec43b", requestBody.getAppid());

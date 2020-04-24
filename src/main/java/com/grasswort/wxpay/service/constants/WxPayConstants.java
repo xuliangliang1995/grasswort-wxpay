@@ -25,7 +25,11 @@ public class WxPayConstants {
     /**
      * xml 根节点 name
      */
-    public static final String XML_ROOT_NODE_NAME = "xml";
+    public static final String XML = "xml";
+    /**
+     * req_info 根节点 root
+     */
+    public static final String ROOT = "root";
 
     /**
      * 服务地址

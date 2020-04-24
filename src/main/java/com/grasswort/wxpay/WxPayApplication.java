@@ -19,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +68,7 @@ public class WxPayApplication {
             if (Objects.equals(serviceUrl, WxPayConstants.ServiceUrl.SANDBOX_SERVICE_URL)) {
                 log.warn("\n【注意】，当前使用的是【沙箱】环境，微信服务地址为：{}", serviceUrl);
 
-                /// 这段代码是用来获取沙箱密钥的
+                // 获取沙箱密钥
                 Map<String, String> params = new HashMap<>();
                 params.put("mch_id", wxMchProperties.getMchId());
                 params.put("nonce_str", RandomStringUtils.randomAlphabetic(32));
@@ -75,6 +76,7 @@ public class WxPayApplication {
                 Document document = new DOMDocument();
                 Element root = document.addElement("xml");
                 params.keySet().stream().forEach(key -> root.addElement(key).add(new DOMCDATA(params.get(key))));
+
                 String result = sandBoxSignKeyService.getSandBoxSignKey(document.asXML());
                 Document resultDoc = DocumentHelper.parseText(result);
                 List<Element> resultParams = resultDoc.getRootElement().elements();

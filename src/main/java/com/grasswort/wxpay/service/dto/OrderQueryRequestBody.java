@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
+@XmlRootElement(name = WxPayConstants.XML)
 public class OrderQueryRequestBody {
     /**
      * 微信分配的微信公众平台（或微信开放平台）appid

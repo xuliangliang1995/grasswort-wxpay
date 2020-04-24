@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
+@XmlRootElement(name = WxPayConstants.XML)
 public class PayNotifyResponseBody {
     /**
      * SUCCESS/FAIL

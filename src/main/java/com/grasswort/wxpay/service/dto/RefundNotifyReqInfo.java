@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NoArgsConstructor
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = WxPayConstants.XML_ROOT_NODE_NAME)
+@XmlRootElement(name = WxPayConstants.ROOT)
 public class RefundNotifyReqInfo {
     /**
      * 微信订单号
