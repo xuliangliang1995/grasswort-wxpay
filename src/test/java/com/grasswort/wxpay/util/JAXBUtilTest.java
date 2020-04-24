@@ -3,6 +3,7 @@ package com.grasswort.wxpay.util;
 import com.grasswort.wxpay.service.dto.PayNotifyRequestBody;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -39,6 +40,7 @@ public class JAXBUtilTest {
     }
 
     @Test
+    @Ignore
     public void unmarshal() {
     }
 }
