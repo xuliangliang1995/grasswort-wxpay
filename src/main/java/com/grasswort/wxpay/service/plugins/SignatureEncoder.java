@@ -31,9 +31,14 @@ import java.util.Map;
 @Slf4j
 public class SignatureEncoder implements Encoder {
 
-    @Autowired private ISignatureUtil signatureUtil;
+    public SignatureEncoder(ISignatureUtil signatureUtil, WxMchProperties mchProperties) {
+        this.signatureUtil = signatureUtil;
+        this.mchProperties = mchProperties;
+    }
 
-    @Autowired private WxMchProperties mchProperties;
+    private final ISignatureUtil signatureUtil;
+
+    private final WxMchProperties mchProperties;
 
     @Override
     public void encode(Object o, Type type, RequestTemplate requestTemplate) throws EncodeException {
@@ -42,7 +47,7 @@ public class SignatureEncoder implements Encoder {
 
         // 2. Document 追加 商户ID 以及 签名算法
         Document document = Xml2DocUtil.xml2Document(xml);
-        document.getRootElement().addElement(SIGN_TYPE).add(new DefaultText(mchProperties.getSignType()));;
+        document.getRootElement().addElement(SIGN_TYPE).add(new DefaultText(signatureUtil.signType()));;
         document.getRootElement().addElement(MCH_ID).add(new DefaultText(mchProperties.getMchId()));
 
         // 3. 签名

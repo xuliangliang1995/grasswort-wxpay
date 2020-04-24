@@ -1,6 +1,7 @@
 package com.grasswort.wxpay.util.impl;
 
 import com.grasswort.wxpay.exception.WxPaySignatureException;
+import com.grasswort.wxpay.service.constants.SignatureArithmeticEnum;
 import org.apache.commons.codec.binary.Hex;
 
 import javax.crypto.Mac;
@@ -12,12 +13,21 @@ import java.util.Optional;
 
 /**
  * @author xuliangliang
- * @Classname HMACSHA256Signature.java
+ * @Classname HmacSHA256Signature.java
  * @Description HMAC-SHA256 签名工具
  * @Date 2020/4/9
  * @blame Java Team
  */
-public class HMACSHA256Signature extends AbstractSignatureUtil {
+public class HmacSHA256Signature extends AbstractSignatureUtil {
+    /**
+     * 签名类型
+     * @return
+     */
+    @Override
+    public String signType() {
+        return SignatureArithmeticEnum.HmacSHA256.getValue();
+    }
+
     /**
      * 算法加密，由子类实现
      *
@@ -42,7 +52,6 @@ public class HMACSHA256Signature extends AbstractSignatureUtil {
                 .filter(s -> null != s && s.length() > 0 && s.contains(KEY_MARKER))
                 .map(s -> s.substring(s.indexOf(KEY_MARKER) + KEY_MARKER.length()))
                 .orElseThrow(() -> new WxPaySignatureException("执行 HMAC-SHA256 签名时字符串中未检测到 key"));
-
         Mac sha256HMAC = Mac.getInstance(Arithmetic);
         SecretKeySpec secretKeySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), Arithmetic);
         sha256HMAC.init(secretKeySpec);

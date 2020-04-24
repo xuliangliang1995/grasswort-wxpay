@@ -7,6 +7,7 @@ import com.grasswort.wxpay.service.dto.RefundQueryResponseBody;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author xuliangliang
@@ -21,5 +22,5 @@ public interface IRefundQueryService {
 
     @Headers(WxPayConstants.CONTENT_TYPE_APPLICATION_XML)
     @PostMapping(WxPayConstants.Path.REFUND_QUERY_PATH)
-    RefundQueryResponseBody refundQuery(RefundQueryRequestBody requestBody);
+    RefundQueryResponseBody refundQuery(@RequestBody RefundQueryRequestBody requestBody);
 }

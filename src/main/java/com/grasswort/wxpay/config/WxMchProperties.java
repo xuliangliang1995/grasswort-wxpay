@@ -4,7 +4,7 @@ import com.grasswort.wxpay.exception.WxPayCertException;
 import com.grasswort.wxpay.exception.UnsupportedArithmeticException;
 import com.grasswort.wxpay.service.constants.SignatureArithmeticEnum;
 import com.grasswort.wxpay.util.ISignatureUtil;
-import com.grasswort.wxpay.util.impl.HMACSHA256Signature;
+import com.grasswort.wxpay.util.impl.HmacSHA256Signature;
 import com.grasswort.wxpay.util.impl.MD5Signature;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,8 +73,8 @@ public class WxMchProperties {
                 .findFirst().orElseThrow(() -> new UnsupportedArithmeticException(signType));
 
         switch (signatureArithmeticEnum) {
-            case HMAC_SHA256:
-                return new HMACSHA256Signature();
+            case HmacSHA256:
+                return new HmacSHA256Signature();
             default:
                 return new MD5Signature();
         }

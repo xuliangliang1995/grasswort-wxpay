@@ -55,6 +55,5 @@ public class RefundNotifyResolverTest {
         assertEquals("SUCCESS", requestBody.getReturnCode());
         assertNotNull(requestBody.getDecodedReqInfo());
         assertEquals("50000408942018111907145868882", requestBody.getDecodedReqInfo().getRefundId());
-        System.out.println(requestBody);
     }
 }

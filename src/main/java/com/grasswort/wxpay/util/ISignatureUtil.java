@@ -17,4 +17,10 @@ public interface ISignatureUtil {
      * @return
      */
     String signature(Map<String, String> params, String key);
+
+    /**
+     * 获取签名类型
+     * @return
+     */
+    String signType();
 }

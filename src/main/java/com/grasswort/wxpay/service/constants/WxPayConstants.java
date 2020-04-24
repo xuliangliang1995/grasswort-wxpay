@@ -70,6 +70,18 @@ public class WxPayConstants {
          */
         public static final String REFUND_QUERY_PATH = "/pay/refundquery";
         /**
+         * 下载交易账单
+         */
+        public static final String DOWNLOAD_BILL = "/pay/downloadbill";
+        /**
+         * 下载资金账单
+         */
+        public static final String DOWNLOAD_FUND_FLOW = "/pay/downloadfundflow";
+        /**
+         * 批量查询评价
+         */
+        public static final String BATCH_QUERY_COMMENT = "/billcommentsp/batchquerycomment";
+        /**
          * 注意！！！沙箱环境
          * 获取沙箱环境密钥
          */
@@ -105,6 +117,18 @@ public class WxPayConstants {
          * 退款查询
          */
         public static final String REFUND_QUERY = "refundQuery";
+        /**
+         * 下载交易账单
+         */
+        public static final String DOWNLOAD_BILL = "downloadBill";
+        /**
+         * 下载资金账单
+         */
+        public static final String DOWNLOAD_FUND_FLOW = "downloadFundFlow";
+        /**
+         * 批量查询评价
+         */
+        public static final String BATCH_QUERY_COMMENT = "batchQueryComment";
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.grasswort.wxpay.util.impl;
 
+import com.grasswort.wxpay.service.constants.SignatureArithmeticEnum;
 import org.springframework.util.DigestUtils;
 
 /**
@@ -10,6 +11,17 @@ import org.springframework.util.DigestUtils;
  * @blame Java Team
  */
 public final class MD5Signature extends AbstractSignatureUtil {
+
+    /**
+     * 签名类型
+     *
+     * @return
+     */
+    @Override
+    public String signType() {
+        return SignatureArithmeticEnum.MD5.getValue();
+    }
+
     /**
      * 算法加密，由子类实现
      *

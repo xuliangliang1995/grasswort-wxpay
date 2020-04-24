@@ -8,7 +8,7 @@ package com.grasswort.wxpay.service.constants;
  * @blame Java Team
  */
 public enum SignatureArithmeticEnum {
-    MD5("MD5"), HMAC_SHA256("HMAC-SHA256");
+    MD5("MD5"), HmacSHA256("HMAC-SHA256");
 
     SignatureArithmeticEnum(String value) {
         this.value = value;

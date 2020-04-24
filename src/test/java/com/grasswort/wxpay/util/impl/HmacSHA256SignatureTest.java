@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class HMACSHA256SignatureTest {
+public class HmacSHA256SignatureTest {
 
     private Map<String, String> params;
     private ISignatureUtil signatureUtil;
@@ -20,7 +20,7 @@ public class HMACSHA256SignatureTest {
     @Before
     public void setUp() throws Exception {
         // 签名工具
-        signatureUtil = new HMACSHA256Signature();
+        signatureUtil = new HmacSHA256Signature();
         // 微信官方文档示例
         params = new HashMap<>();
         params.put("appid", "wxd930ea5d5a258f4f");

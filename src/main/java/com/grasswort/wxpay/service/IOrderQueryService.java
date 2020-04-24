@@ -7,6 +7,7 @@ import com.grasswort.wxpay.service.dto.OrderQueryResponseBody;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author xuliangliang
@@ -25,5 +26,5 @@ public interface IOrderQueryService {
      */
     @Headers(WxPayConstants.CONTENT_TYPE_APPLICATION_XML)
     @PostMapping(WxPayConstants.Path.ORDER_QUERY_PATH)
-    OrderQueryResponseBody orderQuery(OrderQueryRequestBody requestBody);
+    OrderQueryResponseBody orderQuery(@RequestBody OrderQueryRequestBody requestBody);
 }

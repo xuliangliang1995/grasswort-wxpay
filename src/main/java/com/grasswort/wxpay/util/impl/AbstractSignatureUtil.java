@@ -41,6 +41,13 @@ public abstract class AbstractSignatureUtil implements ISignatureUtil {
     }
 
     /**
+     * 签名类型
+     * @return
+     */
+    @Override
+    public abstract String signType();
+
+    /**
      * 算法加密，由子类实现
      * @param text
      * @return
