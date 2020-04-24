@@ -43,7 +43,7 @@ public class PluginXmlSignatureVerify {
     public boolean signatureVerify(String xml) {
         Document document = Xml2DocUtil.xml2Document(xml);
         List<Element> elementList = document.getRootElement().elements();
-        Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
+        Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue, (v1, v2) -> v2));
         String signature = signatureUtil.signature(params, mchProperties.getKey());
         return Objects.equals(params.get(SIGN_KEY), signature);
     }

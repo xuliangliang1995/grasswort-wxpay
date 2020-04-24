@@ -38,7 +38,7 @@ public class RefundNotifyResolver implements IRefundNotifyResolver {
         // 1. 判断是否通信成功
         Document document = Xml2DocUtil.xml2Document(xml);
         List<Element> elementList = document.getRootElement().elements();
-        Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
+        Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue, (v1, v2) -> v2));
         boolean communicateSuccess = WxPayConstants.SUCCESS.equals(params.get(RETURN_CODE));
 
         RefundNotifyRequestBody requestBody = JAXBUtil.unmarshal(document.asXML(), RefundNotifyRequestBody.class);

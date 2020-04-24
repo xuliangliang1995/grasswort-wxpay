@@ -4,3 +4,5 @@ logging:
 spring:
   profiles:
     active: dev
+server:
+  port: 80

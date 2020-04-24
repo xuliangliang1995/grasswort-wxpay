@@ -52,7 +52,7 @@ public class SignatureVerifyDecoder implements Decoder {
             // 2. 判断 return_code 是否是 SUCCESS
             Document document = Xml2DocUtil.xml2Document(xml);
             List<Element> elementList = document.getRootElement().elements();
-            Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue));
+            Map<String, String> params = elementList.stream().collect(Collectors.toMap(Element::getName, Element::getStringValue, (v1, v2) -> v2));
 
             if (WxPayConstants.SUCCESS.equals(params.get(RETURN_CODE))) {
                 // 3。如果 SUCCESS，进行签名校验
